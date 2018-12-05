@@ -14,7 +14,7 @@ wandb.init()
 config = wandb.config
 
 # set parameters:
-config.vocab_size = 1000
+config.vocab_size = 2000#1000
 config.maxlen = 1000
 config.batch_size = 32
 config.embedding_dims = 50

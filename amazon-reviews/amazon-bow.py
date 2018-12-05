@@ -10,7 +10,7 @@ from wandb.keras import WandbCallback
 
 wandb.init()
 config = wandb.config
-config.vocab_size = 1000
+config.vocab_size = 2000#1000
 
 (train_summary, train_review_text, train_labels), (test_summary, test_review_text, test_labels) = amazon.load_amazon()
 

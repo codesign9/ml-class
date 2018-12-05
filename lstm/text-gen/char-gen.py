@@ -22,7 +22,7 @@ config = run.config
 config.hidden_nodes = 128
 config.batch_size = 256
 config.file = args.text
-config.maxlen = 200
+config.maxlen = 200 #steps
 config.step = 3
 
 text = io.open(config.file, encoding='utf-8').read()
@@ -50,9 +50,9 @@ for i, sentence in enumerate(sentences):
     y[i, char_indices[next_chars[i]]] = 1
 
 model = Sequential()
-model.add(GRU(128, input_shape=(config.maxlen, len(chars))))
+model.add(GRU(128, input_shape=(config.maxlen, len(chars)))) #output = 128
 model.add(Dense(len(chars), activation='softmax'))
-model.compile(loss='categorical_crossentropy', optimizer="rmsprop")
+model.compile(loss='categorical_crossentropy', optimizer="rmsprop") # crossentropy: cos each letter is class..
 
 
 def sample(preds, temperature=1.0):

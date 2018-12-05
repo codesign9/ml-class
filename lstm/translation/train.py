@@ -27,7 +27,7 @@ config.batch_size = 64  # Batch size for training.
 config.epochs = 5  # Number of epochs to train for.
 config.latent_dim = 256  # Latent dimensionality of the encoding space.
 config.num_samples = 10000  # Number of samples to train on.
-config.data_path = 'deu.txt' # Path to the data txt file on disk.
+config.data_path = 'deu.txt'#'hun.txt'#'deu.txt' # Path to the data txt file on disk.
  
 
 # Vectorize the data.

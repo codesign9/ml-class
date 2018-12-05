@@ -49,6 +49,7 @@ config.batch_size = 128
 # Maximum length of input is 'int + int' (e.g., '345+678'). Maximum length of
 # int is DIGITS.
 maxlen = config.digits + 1 + config.digits
+#maxlen = config.digits + 1 + config.digits + 1 + config.digits
 
 # All the numbers, plus sign and space for padding.
 chars = '0123456789+- '
@@ -62,6 +63,7 @@ while len(questions) < config.training_size:
     f = lambda: int(''.join(np.random.choice(list('0123456789'))
                     for i in range(np.random.randint(1, config.digits + 1))))
     a, b = f(), f()
+    #a, b, c = f(), f(), f()
     # Skip any addition questions we've already seen
     # Also skip any such that x+Y == Y+x (hence the sorting).
     key = tuple(sorted((a, b)))
@@ -69,9 +71,13 @@ while len(questions) < config.training_size:
         continue
     seen.add(key)
     # Pad the data with spaces such that it is always MAXLEN.
-    q = '{}-{}'.format(a, b)
+    #if(np.random.rand()<0.5):
+    q = '{}-{}'.format(a, b) # - operation case
+    #q = '{}+{}'.format(a, b) # + operation case
     query = q + ' ' * (maxlen - len(q))
     ans = str(a - b)
+    #else
+        
     # Answers can be of maximum size DIGITS + 1.
     ans += ' ' * (config.digits + 1 - len(ans))
 
@@ -103,8 +109,8 @@ split_at = len(x) - len(x) // 10
 model = Sequential()
 model.add(LSTM(config.hidden_size, input_shape=(maxlen, len(chars))))
 model.add(RepeatVector(config.digits + 1))
-model.add(LSTM(config.hidden_size, return_sequences=True))
-model.add(TimeDistributed(Dense(len(chars), activation='softmax')))
+model.add(LSTM(config.hidden_size, return_sequences=True)) # return all outputs per stage..
+model.add(TimeDistributed(Dense(len(chars), activation='softmax'))) # why softmax?:
 model.compile(loss='categorical_crossentropy',
               optimizer='adam',
               metrics=['accuracy'])

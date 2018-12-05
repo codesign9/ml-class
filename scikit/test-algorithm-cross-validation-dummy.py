@@ -22,9 +22,9 @@ fixed_text = text[pd.notnull(text)]
 
 # Perform feature extraction:
 from sklearn.feature_extraction.text import CountVectorizer
-count_vect = CountVectorizer()
-count_vect.fit(fixed_text)
-counts = count_vect.transform(fixed_text)
+count_vect = CountVectorizer() # for bag of words
+count_vect.fit(fixed_text) # keras tokenizer to fit
+counts = count_vect.transform(fixed_text) # for numbers
 
 # Train with this data with a dummy classifier:
 from sklearn.dummy import DummyClassifier
